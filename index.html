@@ -1,295 +1,576 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shop Bijoux</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0f0f0f;--bg2:#1a1a1a;--text:#fff;--text2:#999;--border:#2a2a2a;--accent:#c9a961;--green:#4ade80;--blue:#3b82f6;--purple:#a855f7;--yellow:#eab308}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding-bottom:100px}
-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:1rem;position:sticky;top:0;z-index:100}
-.header-top{display:flex;justify-content:space-between;align-items:center}
-.hbtn{width:40px;height:40px;background:var(--border);border:none;color:var(--text);border-radius:50%;cursor:pointer;font-size:1.2rem}
-.header-title{font-size:1.1rem;font-weight:600}
-main{max-width:500px;margin:0 auto;padding:1rem}
-.view{display:none}.view.active{display:block}
-h1{font-size:2rem;margin:1rem 0 .5rem}
-h2{font-size:1.3rem;margin:.5rem 0}
-.description{color:var(--text2);margin-bottom:1.5rem;font-size:.95rem}
-.stats{display:flex;gap:2rem;margin:1.5rem 0;font-size:.9rem}
-.action-buttons{display:flex;gap:1rem;margin:1.5rem 0}
-.btn{flex:1;padding:.75rem 1rem;border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:20px;cursor:pointer;font-size:.9rem}
-.btn:active{background:var(--border)}
-.btn.on{border-color:var(--accent);color:var(--accent)}
-.btn-icon{flex:0 0 48px;padding:0}
-.btn-gold{background:var(--accent);color:#000;border:none;font-weight:600;width:100%}
-.section{margin:2rem 0}
-.section-title{font-size:.85rem;color:var(--text2);margin-bottom:.5rem;text-transform:uppercase}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
-.card:active{border-color:var(--accent)}
-.card-left{display:flex;align-items:center;gap:1rem;flex:1}
-.card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
-.g{background:var(--green)}.b{background:var(--blue)}.p{background:var(--purple)}.y{background:var(--yellow)}.d{background:var(--border)}
-.card-text h3{font-size:1rem}
-.card-text p{font-size:.8rem;color:var(--text2)}
-.arrow{color:var(--text2);font-size:1.2rem}
-.box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1rem;margin:1rem 0;font-size:.9rem}
-.box p{margin:.5rem 0}
-strong{color:var(--accent)}
-.credit{font-size:.75rem;color:var(--text2);margin:1rem 0}
-.ring{height:160px;border-radius:12px;background:linear-gradient(135deg,#2a2a2a,#1a1a1a);display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:1rem}
-select,input{width:100%;padding:.75rem;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:10px;font-size:1rem;margin:.5rem 0}
-label{font-size:.85rem;color:var(--text2)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.look{aspect-ratio:1;justify-content:flex-end!important;padding:.6rem;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;color:#fff;font-size:.85rem;background-size:cover;background-position:center;position:relative;overflow:hidden}
-.look::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.3);z-index:1}
-.look span{font-size:2.2rem;position:relative;z-index:2}
-.look-label{position:relative;z-index:2;text-align:center;font-weight:500}
-.chat{display:flex;flex-direction:column;gap:.6rem;margin:1rem 0;min-height:200px}
-.msg{max-width:85%;padding:.7rem 1rem;border-radius:16px;font-size:.92rem}
-.msg.bot{background:var(--bg2);border:1px solid var(--border);align-self:flex-start}
-.msg.me{background:var(--accent);color:#000;align-self:flex-end}
-.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
-.chip{padding:.5rem .9rem;border:1px solid var(--accent);color:var(--accent);background:none;border-radius:20px;cursor:pointer;font-size:.85rem}
-.row{display:flex;gap:.5rem}
-.row input{margin:0}
-.row button{width:56px;border:none;border-radius:10px;background:var(--accent);font-size:1.2rem;cursor:pointer}
-.item{display:flex;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border);font-size:.95rem}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;height:80px;z-index:200}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--text2);font-size:.75rem;cursor:pointer;background:none;border:none;position:relative}
-.nav-item.active{color:var(--blue)}
-.nav-icon{font-size:1.5rem}
-.badge{position:absolute;top:-4px;right:-8px;background:var(--accent);color:#000;border-radius:10px;font-size:.65rem;min-width:18px;height:18px;display:none;align-items:center;justify-content:center;font-weight:700}
-.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#000;padding:.75rem 1.25rem;border-radius:20px;font-size:.9rem;font-weight:600;opacity:0;pointer-events:none;transition:all .25s;z-index:300;max-width:90%;text-align:center}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.hero{height:230px;border-radius:16px;margin:1rem 0 0;cursor:pointer;display:flex;align-items:flex-end;padding:1rem;font-weight:600;color:var(--accent)}
-.look,.zoom{cursor:pointer}
-.lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:400;padding:1rem}
-.lb.show{display:flex}.lb img{max-width:100%;max-height:85vh;border-radius:12px}
-.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:350}
-.sheet-bg.show{display:block}
-.sheet{position:fixed;left:0;right:0;bottom:0;background:var(--bg2);border-top:1px solid var(--border);border-radius:20px 20px 0 0;padding:1rem 1rem 2rem;max-width:500px;margin:0 auto}
-.sheet button{display:block;width:100%;text-align:left;padding:.9rem;background:none;border:none;border-bottom:1px solid var(--border);color:var(--text);font-size:1rem;cursor:pointer}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Bijoux - Élégance et Luxe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+        
+        nav a:hover {
+            color: #d4af37;
+        }
+        
+        .hero {
+            background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #bbb;
+            line-height: 1.8;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #d4af37, #c19a1a);
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212,175,55,0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background: #d4af37;
+            color: #000;
+        }
+        
+        .collections {
+            padding: 80px 20px;
+            background: #f9f9f9;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            color: #1a1a1a;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #d4af37;
+            margin: 15px auto 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212,175,55,0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #d4af37, #e8d4a8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #fff;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .product-info p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 24px;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        .about {
+            padding: 80px 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #d4af37;
+        }
+        
+        .about p {
+            margin-bottom: 15px;
+            color: #ccc;
+            line-height: 1.8;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .feature h4 {
+            margin-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .newsletter {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #d4af37, #e8d4a8);
+            text-align: center;
+            color: #1a1a1a;
+        }
+        
+        .newsletter h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .newsletter p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        
+        .email-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+        
+        .email-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .email-form button {
+            padding: 15px 30px;
+            background: #1a1a1a;
+            color: #d4af37;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .email-form button:hover {
+            background: #2d2d2d;
+        }
+        
+        footer {
+            background: #0f0f0f;
+            color: #888;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #d4af37;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                font-size: 12px;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .testimonials {
+            padding: 80px 20px;
+            background: #f9f9f9;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .testimonial {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-stars {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .testimonial p {
+            margin-bottom: 15px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .cta-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            text-align: center;
+            color: #fff;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
-
-<header>
-  <div class="header-top">
-    <button class="hbtn" id="back">‹</button>
-    <span class="header-title" id="title">shop-bijoux</span>
-    <button class="hbtn" id="menu">⋯</button>
-  </div>
-</header>
-
-<main>
-
-<!-- HOME -->
-<div class="view active" id="home" data-title="shop-bijoux">
-  <div class="hero" data-go="pieces" style="background:linear-gradient(to top,rgba(0,0,0,.65),transparent 60%),url(https://images.pexels.com/photos/1458867/pexels-photo-1458867.jpeg?auto=compress&cs=tinysrgb&w=600) center/cover"><span>Voir la collection ›</span></div>
-  <h1>shop-bijoux</h1>
-  <div class="description">Idées cadeaux pour Noël — Une bague rubis taille émeraude et une bague à pierre claire entourée d'un éclat de pierres navette. Deux pièces à offrir, livrées dans leur écrin.</div>
-  <div class="action-buttons">
-    <button class="btn" id="star">⭐ Star</button>
-    <button class="btn btn-icon" id="fork">🔀</button>
-    <button class="btn btn-icon" id="bell">🔔</button>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Collection</div>
-    <div class="card" data-go="pieces"><div class="card-left"><div class="card-icon g">💎</div><div class="card-text"><h3>Nos pièces</h3><p>Deux bagues en argent, prêtes à offrir</p></div></div><div class="arrow">›</div></div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Experts IA</div>
-    <div class="card" data-go="shopper"><div class="card-left"><div class="card-icon b">👤</div><div class="card-text"><h3>Personal Shopper</h3><p>Recommandations personnalisées selon votre style et budget</p></div></div><div class="arrow">›</div></div>
-    <div class="card" data-go="collector"><div class="card-left"><div class="card-icon p">💎</div><div class="card-text"><h3>Collector AI</h3><p>Conseils sur l'investissement, l'entretien et la valeur</p></div></div><div class="arrow">›</div></div>
-    <div class="card" data-go="help"><div class="card-left"><div class="card-icon y">💬</div><div class="card-text"><h3>Live Help</h3><p>Réponses rapides à vos questions sur les bijoux</p></div></div><div class="arrow">›</div></div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Lookbook</div>
-    <div class="card" data-go="lookbook"><div class="card-left"><div class="card-icon d">📸</div><div class="card-text"><h3>Portées du jour</h3><p>Comment nos clients portent nos bagues au quotidien</p></div></div><div class="arrow">›</div></div>
-    <div class="card" data-go="inspi"><div class="card-left"><div class="card-icon d">✨</div><div class="card-text"><h3>Un bijou pour chaque style</h3><p>Des idées pour porter l'argent au quotidien</p></div></div><div class="arrow">›</div></div>
-  </div>
-
-  <div class="box"><div class="ring zoom" style="background:url(https://images.pexels.com/photos/5442447/pexels-photo-5442447.jpeg?auto=compress&cs=tinysrgb&w=600) center/cover"></div><h2>Argent &amp; pierres</h2>
-    <p><strong>Livraison offerte</strong> en France · <strong>Écrin cadeau</strong> inclus · <strong>Taille au choix</strong> du 50 au 58</p>
-  </div>
-  <div class="credit">© Shop Bijoux · shopbijoux.fr · Bijoux en argent · Livraison offerte · Écrin cadeau</div>
-</div>
-
-<!-- PIECES -->
-<div class="view" id="pieces" data-title="Nos pièces">
-  <h1>Nos pièces</h1>
-  <div class="description">Deux bagues en argent, prêtes à offrir.</div>
-  <div class="box">
-    <div class="ring zoom" style="background:url(https://images.pexels.com/photos/1232931/pexels-photo-1232931.jpeg?auto=compress&cs=tinysrgb&w=600) center/cover"></div>
-    <h2>Bague rubis taille émeraude</h2>
-    <p>Écrin cadeau inclus · Livraison offerte en France</p>
-    <label>Taille</label>
-    <select class="size"><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option></select>
-    <button class="btn btn-gold add" data-name="Bague rubis taille émeraude">Ajouter au panier</button>
-  </div>
-  <div class="box">
-    <div class="ring zoom" style="background:url(https://images.pexels.com/photos/3266703/pexels-photo-3266703.jpeg?auto=compress&cs=tinysrgb&w=600) center/cover"></div>
-    <h2>Bague pierre claire et pierres navette</h2>
-    <p>Écrin cadeau inclus · Livraison offerte en France</p>
-    <label>Taille</label>
-    <select class="size"><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option></select>
-    <button class="btn btn-gold add" data-name="Bague pierre claire et pierres navette">Ajouter au panier</button>
-  </div>
-</div>
-
-<!-- EXPERTS -->
-<div class="view chatview" id="shopper" data-title="Personal Shopper" data-hello="Bonjour ! Dites-moi votre style et votre budget, je vous recommande une bague." data-chips="Style classique|Style moderne|Petit budget">
-  <h1>Personal Shopper</h1><div class="description">Recommandations personnalisées selon votre style et budget.</div>
-  <div class="chat"></div><div class="chips"></div>
-  <div class="row"><input placeholder="Votre message…"><button>➤</button></div>
-</div>
-<div class="view chatview" id="collector" data-title="Collector AI" data-hello="Bonjour ! Posez-moi vos questions sur l'investissement, l'entretien ou la valeur de vos bijoux." data-chips="Entretien|Valeur|Investissement">
-  <h1>Collector AI</h1><div class="description">Conseils sur l'investissement, l'entretien et la valeur.</div>
-  <div class="chat"></div><div class="chips"></div>
-  <div class="row"><input placeholder="Votre message…"><button>➤</button></div>
-</div>
-<div class="view chatview" id="help" data-title="Live Help" data-hello="Bonjour ! Une question sur nos bijoux ? Je réponds vite." data-chips="Livraison|Tailles|Écrin cadeau">
-  <h1>Live Help</h1><div class="description">Réponses rapides à vos questions sur les bijoux.</div>
-  <div class="chat"></div><div class="chips"></div>
-  <div class="row"><input placeholder="Votre message…"><button>➤</button></div>
-</div>
-
-<!-- LOOKBOOK -->
-<div class="view" id="lookbook" data-title="Portées du jour">
-  <h1>Portées du jour</h1><div class="description">Comment nos clients portent nos bagues au quotidien.</div>
-  <div class="grid">
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Bague portée</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Bracelet porté</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/1721937/pexels-photo-1721937.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Boucles en main</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/265906/pexels-photo-265906.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Anneaux argent</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/10475789/pexels-photo-10475789.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Solitaire</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/691046/pexels-photo-691046.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Pierre claire</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/1457801/pexels-photo-1457801.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Duo de pierres</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/2849742/pexels-photo-2849742.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Éclat rosé</span></div>
-  </div>
-</div>
-
-<!-- INSPI -->
-<div class="view" id="inspi" data-title="Inspirations">
-  <h1>Un bijou pour chaque style</h1><div class="description">Des idées pour porter l'argent au quotidien.</div>
-  <div class="grid">
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/1395306/pexels-photo-1395306.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Élégant</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/2735970/pexels-photo-2735970.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Moderne</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/3641056/pexels-photo-3641056.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Tendance</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/1413420/pexels-photo-1413420.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Coloré</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/5370657/pexels-photo-5370657.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Minimal</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/5370706/pexels-photo-5370706.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Lumineux</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/3641059/pexels-photo-3641059.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Doré</span></div>
-    <div class="look" style="background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.4)),url('https://images.pexels.com/photos/1616096/pexels-photo-1616096.jpeg?auto=compress&cs=tinysrgb&w=600')"><span class="look-label">Bohème</span></div>
-  </div>
-  <div class="credit">Photos d'ambiance : ces bijoux ne sont pas en vente. Photos Pexels.</div>
-</div>
-
-<!-- PANIER -->
-<div class="view" id="cart" data-title="Votre panier">
-  <h1>Votre panier</h1>
-  <div class="box" id="items"><p style="color:var(--text2)">Panier vide.</p></div>
-  <div class="box"><p>Total <strong>0 €</strong></p><p>Livraison offerte · Écrin cadeau inclus</p>
-    <p style="color:var(--text2);font-size:.8rem">Boutique de démonstration : la commande n'est pas transmise et le paiement n'est pas encore branché.</p></div>
-  <label>Nom et prénom</label><input id="nom">
-  <label>E-mail</label><input id="mail" type="email">
-  <label>Adresse de livraison</label><input id="adr">
-  <button class="btn btn-gold" id="recap" style="margin-top:1rem">Récapitulatif prêt</button>
-  <div class="box" id="recapbox" style="display:none"></div>
-</div>
-
-</main>
-
-<nav class="bottom-nav">
-  <button class="nav-item active" data-nav="home"><span class="nav-icon">🏠</span>Home</button>
-  <button class="nav-item" data-nav="cart"><span class="nav-icon">🛒</span>Panier<span class="badge" id="badge">0</span></button>
-  <button class="nav-item" data-nav="pieces"><span class="nav-icon">🔍</span>Explore</button>
-  <button class="nav-item" data-nav="help"><span class="nav-icon">💬</span>Chat</button>
-</nav>
-
-<div class="lb" id="lb"><img id="lbimg" alt=""></div>
-<div class="sheet-bg" id="sheet"><div class="sheet">
-  <button data-m="pieces">💎 Nos pièces</button><button data-m="cart">🛒 Panier</button><button data-m="lookbook">📸 Portées du jour</button><button data-m="inspi">✨ Inspirations</button><button data-m="shopper">👤 Personal Shopper</button><button data-m="collector">💎 Collector AI</button><button data-m="help">💬 Live Help</button>
-</div></div>
-<div class="toast" id="toast"></div>
-
-<script>
-var stack=['home'],cart=[],tt;
-function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},1800)}
-function show(id,push){
-  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});
-  var v=document.getElementById(id);v.classList.add('active');
-  document.getElementById('title').textContent=v.dataset.title;
-  if(push)stack.push(id);
-  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.toggle('active',n.dataset.nav===stack[0])});
-  if(v.classList.contains('chatview')&&!v.dataset.init)initChat(v);
-  window.scrollTo(0,0);
-}
-document.querySelectorAll('[data-go]').forEach(function(c){c.onclick=function(){show(c.dataset.go,true)}});
-document.querySelectorAll('[data-nav]').forEach(function(n){n.onclick=function(){stack=[n.dataset.nav];show(n.dataset.nav,false)}});
-document.getElementById('back').onclick=function(){if(stack.length>1){stack.pop();show(stack[stack.length-1],false)}else toast('Accueil')};
-document.getElementById('menu').onclick=function(){toast('Panier : '+cart.length+' article(s)')};
-['star','fork','bell'].forEach(function(id){var b=document.getElementById(id);b.onclick=function(){b.classList.toggle('on');var on=b.classList.contains('on');
-  if(id==='star'){b.textContent=on?'⭐ Starred':'⭐ Star'}toast(({star:'Star',fork:'Fork',bell:'Notifications'})[id]+(on?' activé':' désactivé'))}});
-
-// Panier
-function renderCart(){
-  var el=document.getElementById('items'),bd=document.getElementById('badge');
-  el.innerHTML=cart.length?cart.map(function(c,i){return '<div class="item"><span>'+c.name+' · taille '+c.size+'</span><span onclick="rm('+i+')" style="cursor:pointer">✕</span></div>'}).join(''):'<p style="color:var(--text2)">Panier vide.</p>';
-  bd.textContent=cart.length;bd.style.display=cart.length?'flex':'none';
-}
-function rm(i){cart.splice(i,1);renderCart()}
-document.querySelectorAll('.add').forEach(function(b){b.onclick=function(){
-  var size=b.parentNode.querySelector('.size').value;cart.push({name:b.dataset.name,size:size});renderCart();toast('Ajouté · taille '+size)}});
-document.getElementById('recap').onclick=function(){
-  var n=document.getElementById('nom').value.trim(),m=document.getElementById('mail').value.trim(),a=document.getElementById('adr').value.trim();
-  if(!cart.length)return toast('Panier vide');
-  if(!n||!m||!a)return toast('Remplissez les 3 champs');
-  var r=document.getElementById('recapbox');r.style.display='block';
-  r.innerHTML='<strong>Récapitulatif prêt</strong><p>'+n+' · '+m+'</p><p>'+a+'</p><p>'+cart.map(function(c){return c.name+' (taille '+c.size+')'}).join('<br>')+'</p><p style="color:var(--text2);font-size:.8rem">Démonstration : commande non transmise.</p>';
-};
-
-// Chats
-var answers={
-  shopper:{'Style classique':'La bague rubis taille émeraude, élégante et intemporelle.','Style moderne':'La bague à pierre claire entourée de pierres navette, plus éclatante.','Petit budget':'Dites-moi votre budget, je vous oriente vers la pièce la plus adaptée.','def':'Merci ! Dites-moi votre style (classique ou moderne) et votre budget.'},
-  collector:{'Entretien':'Rangez-la dans son écrin, à l\'abri de l\'humidité, et nettoyez-la avec un chiffon doux.','Valeur':'La valeur dépend de l\'argent, des pierres et de leur état de conservation.','Investissement':'Un bijou en argent est avant tout une pièce à porter et à offrir.','def':'Je peux vous conseiller sur l\'entretien, la valeur ou l\'investissement.'},
-  help:{'Livraison':'La livraison est offerte en France.','Tailles':'Les bagues sont disponibles du 50 au 58.','Écrin cadeau':'Chaque bague est livrée dans son écrin cadeau, inclus.','def':'Je peux répondre sur la livraison, les tailles ou l\'écrin cadeau.'}
-};
-function say(v,t,cls){var c=v.querySelector('.chat'),d=document.createElement('div');d.className='msg '+cls;d.textContent=t;c.appendChild(d)}
-function ask(v,q){say(v,q,'me');var a=answers[v.id];setTimeout(function(){say(v,a[q]||a.def,'bot')},400)}
-function initChat(v){
-  v.dataset.init=1;say(v,v.dataset.hello,'bot');
-  var ch=v.querySelector('.chips');
-  v.dataset.chips.split('|').forEach(function(q){var b=document.createElement('button');b.className='chip';b.textContent=q;b.onclick=function(){ask(v,q)};ch.appendChild(b)});
-  var inp=v.querySelector('input'),btn=v.querySelector('.row button');
-  function send(){var q=inp.value.trim();if(!q)return;inp.value='';ask(v,q)}
-  btn.onclick=send;inp.onkeydown=function(e){if(e.key==='Enter')send()};
-}
-
-// Menu ⋯
-var sh=document.getElementById('sheet');
-document.getElementById('menu').onclick=function(){sh.classList.add('show')};
-sh.onclick=function(e){if(e.target===sh)sh.classList.remove('show')};
-sh.querySelectorAll('[data-m]').forEach(function(b){b.onclick=function(){sh.classList.remove('show');show(b.dataset.m,true)}});
-// Agrandir les photos
-var lb=document.getElementById('lb'),lbi=document.getElementById('lbimg');
-document.querySelectorAll('.look,.zoom').forEach(function(el){el.onclick=function(){var m=getComputedStyle(el).backgroundImage.match(/url\("?(https:[^")]+)"?\)/);if(m){lbi.src=m[1];lb.classList.add('show')}}});
-lb.onclick=function(){lb.classList.remove('show')};
-// Partager
-document.getElementById('fork').onclick=function(){var u=location.href;
-  if(navigator.share){navigator.share({title:'Shop Bijoux',url:u}).catch(function(){})}
-  else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){toast('Lien copié')},function(){toast('Copie impossible')})}
-  else toast('Partage indisponible')};
-// Notifications
-var bell=document.getElementById('bell');
-bell.onclick=function(){
-  if(!('Notification' in window)){bell.classList.toggle('on');return toast(bell.classList.contains('on')?'Alertes activées':'Alertes désactivées')}
-  Notification.requestPermission().then(function(p){var ok=p==='granted';bell.classList.toggle('on',ok);toast(ok?'Alertes activées':'Alertes refusées')})};
-</script>
+    <header>
+        <nav class="container">
+            <div class="logo">✨ Bijoux</div>
+            <ul>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#about">À Propos</a></li>
+                <li><a href="#testimonials">Avis</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Élégance Intemporelle</h1>
+            <p>Découvrez notre collection exclusive de bijoux artisanaux, conçus avec passion et précision. Chaque pièce raconte une histoire unique.</p>
+            <button class="btn">Découvrir les Collections</button>
+            <button class="btn btn-secondary">En Savoir Plus</button>
+        </div>
+    </section>
+    
+    <section class="collections" id="collections">
+        <div class="container">
+            <h2 class="section-title">Nos Collections</h2>
+            <div class="grid">
+                <div class="product-card">
+                    <div class="product-image">💎</div>
+                    <div class="product-info">
+                        <h3>Bagues Précieuses</h3>
+                        <p>Sélection de bagues en or et diamants, d'une élégance sans égale.</p>
+                        <div class="price">À partir de 2 500€</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">✨</div>
+                    <div class="product-info">
+                        <h3>Colliers Délicats</h3>
+                        <p>Des colliers fins et raffinés, parfaits pour toute occasion.</p>
+                        <div class="price">À partir de 1 200€</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">👑</div>
+                    <div class="product-info">
+                        <h3>Boucles d'Oreilles</h3>
+                        <p>Boucles d'oreilles en perles et pierres précieuses.</p>
+                        <div class="price">À partir de 800€</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">⌚</div>
+                    <div class="product-info">
+                        <h3>Bracelets de Luxe</h3>
+                        <p>Bracelets artisanaux avec fermoirs en or massif.</p>
+                        <div class="price">À partir de 1 500€</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">💍</div>
+                    <div class="product-info">
+                        <h3>Bagues de Fiançailles</h3>
+                        <p>Bagues personnalisées pour votre moment de bonheur.</p>
+                        <div class="price">Sur demande</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">🌟</div>
+                    <div class="product-info">
+                        <h3>Collection Limitée</h3>
+                        <p>Édition spéciale avec pièces uniques et numérotées.</p>
+                        <div class="price">À partir de 5 000€</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div>
+                    <h2>À Propos de Nous</h2>
+                    <p>Depuis plus de 30 ans, nous créons des bijoux d'exception pour les clients les plus exigeants. Notre expertise réside dans la sélection des plus beaux matériaux et dans la maîtrise des techniques ancestrales.</p>
+                    <p>Chaque création est unique, travaillée à la main par nos artisans qualifiés. Nous garantissons la qualité et l'authenticité de tous nos bijoux.</p>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">🎨</div>
+                        <h4>Design Unique</h4>
+                        <p>Créations personnalisées selon vos envies</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">✅</div>
+                        <h4>Qualité Garantie</h4>
+                        <p>Certifications et garanties incluses</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🚚</div>
+                        <h4>Livraison Sécurisée</h4>
+                        <p>Transport assuré partout en France</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Avis de Nos Clients</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p>"Une expérience exceptionnelle ! Les bijoux sont magnifiques et l'équipe est très professionnelle. Je recommande vivement !"</p>
+                    <div class="testimonial-author">- Marie Dupont</div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p>"La qualité est impeccable et le service client est formidable. J'ai trouvé exactement ce que je cherchais."</p>
+                    <div class="testimonial-author">- Jean Bernard</div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p>"Des créations de luxe abordables. L'équipe a même personnalisé ma bague selon mes souhaits. Merci !"</p>
+                    <div class="testimonial-author">- Sophie Martin</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2>Prêt à Trouver Votre Bijou Idéal ?</h2>
+            <button class="btn">Commencer Maintenant</button>
+        </div>
+    </section>
+    
+    <section class="newsletter">
+        <div class="container">
+            <h2>Restez Informé</h2>
+            <p>Inscrivez-vous à notre newsletter pour découvrir les nouvelles collections en avant-première.</p>
+            <form class="email-form">
+                <input type="email" placeholder="Votre adresse email" required>
+                <button type="submit">S'inscrire</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#collections">Collections</a>
+                <a href="#about">À Propos</a>
+                <a href="#testimonials">Avis</a>
+                <a href="#">Mentions Légales</a>
+                <a href="#">Politique de Confidentialité</a>
+            </div>
+            <p>&copy; 2026 Shop Bijoux. Tous droits réservés. | Luxe et Élégance depuis 1993</p>
+        </div>
+    </footer>
 </body>
 </html>
