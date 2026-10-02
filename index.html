@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Shop Bijoux - Bagues en argent prêtes à offrir. Livraison offerte en France.">
 <title>Shop Bijoux</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -71,15 +72,21 @@ label{font-size:.85rem;color:var(--text2)}
 .sheet-bg.show{display:block}
 .sheet{position:fixed;left:0;right:0;bottom:0;background:var(--bg2);border-top:1px solid var(--border);border-radius:20px 20px 0 0;padding:1rem 1rem 2rem;max-width:500px;margin:0 auto}
 .sheet button{display:block;width:100%;text-align:left;padding:.9rem;background:none;border:none;border-bottom:1px solid var(--border);color:var(--text);font-size:1rem;cursor:pointer}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.card:hover{border-color:var(--accent);transition:border .15s}
+.look{transition:transform .2s}
+.look:hover{transform:scale(1.02)}
+.msg{animation:slideIn .3s ease-out}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-top">
-    <button class="hbtn" id="back">‹</button>
+    <button class="hbtn" id="back" aria-label="Retour">‹</button>
     <span class="header-title" id="title">shop-bijoux</span>
-    <button class="hbtn" id="menu">⋯</button>
+    <button class="hbtn" id="menu" aria-label="Menu">⋯</button>
   </div>
 </header>
 
